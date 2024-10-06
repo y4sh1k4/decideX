@@ -1,6 +1,6 @@
 import React from "react";
 import { BackgroundLines } from "./ui/Background";
-
+import Link from "next/link";
 export function BackgroundLinesDemo() {
   return (
     <BackgroundLines className="flex items-center justify-center w-full flex-col px-4 mt-[2vw]">
@@ -12,12 +12,14 @@ export function BackgroundLinesDemo() {
       <p className="max-w-xl mx-auto text-sm md:text-lg text-neutral-700 dark:text-neutral-400 text-center">
       Unlock Collective Wisdom, Earn Rewards, and Shape the Future of Decision-Making.
       </p>
+      <Link href="/vote">
       <button className="p-[3px] relative mt-8">
         <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
         <div className="px-8 py-2  bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent">
           Start Voting
         </div>
       </button>
+      </Link>
     </BackgroundLines>
   );
 }

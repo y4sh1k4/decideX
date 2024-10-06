@@ -10,7 +10,9 @@ export default function Header() {
         <div className="container mx-auto px-4 py-4">
           <nav className="flex justify-between items-center">
             <div className="text-2xl font-bold text-white">
+              <Link href="/">
               <Image src="/Images/logo.png" width={150} height={50} alt="logo"/>
+              </Link>
             </div>
             {address&&
             <div className="flex text-sm gap-[3rem]">
@@ -18,7 +20,7 @@ export default function Header() {
                 <Link href="/Vote">Vote</Link>
               </div>
               <div className=" text-white">
-                <Link href="/create">Create</Link>
+                <Link href="/Create">Create</Link>
               </div>
             </div>
             }
