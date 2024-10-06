@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function Header() {
     const { address } = useAccount();
     return (
-      <header className="bg-black backdrop-opacity-15 shadow-md border-b-2 border-b-gray-700 fixed top-0 w-[100%] z-40">
+      <header className="bg-black backdrop-blur-sm bg-opacity-10 shadow-md border-b-2 border-b-gray-700 fixed top-0 w-[100%] z-40">
         <div className="container mx-auto px-4 py-4">
           <nav className="flex justify-between items-center">
             <div className="text-2xl font-bold text-white">
@@ -15,7 +15,7 @@ export default function Header() {
             {address&&
             <div className="flex text-sm gap-[3rem]">
               <div className=" text-white">
-                <Link href="/vote">Vote</Link>
+                <Link href="/Vote">Vote</Link>
               </div>
               <div className=" text-white">
                 <Link href="/create">Create</Link>
