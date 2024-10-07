@@ -22,6 +22,9 @@ export default function Header() {
               <div className=" text-white">
                 <Link href="/Create">Create</Link>
               </div>
+              <div className=" text-white">
+                <Link href="/Profile">Profile</Link>
+              </div>
             </div>
             }
             <ConnectKitButton/>

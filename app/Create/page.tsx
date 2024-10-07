@@ -23,10 +23,9 @@ const VotePage = () => {
     pinataGateway: "olive-fashionable-mule-815.mypinata.cloud",
   });
   const handleFileChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-    let upload;
     if (event.target.files) {
       Array.from(event.target.files).map(async(file)=>{
-        upload = await pinata.upload.file(file)
+        const upload = await pinata.upload.file(file)
         console.log(file)
         console.log(upload)
         setImageHash(prev=>[...prev,upload.IpfsHash])
@@ -43,11 +42,11 @@ const VotePage = () => {
   console.log(noOfVotes)
   console.log(title)
   console.log(parseEther(rewards))
-  const handleSubmit=(e:any)=>{
+  const handleSubmit=(e:React.FormEvent)=>{
     e.preventDefault();
     writeContract({ 
       abi,
-      address: '0x1Cb69b1F1665E070FD645540F84F44804bb76886',
+      address: '0x49EEbE34b6ea44C602915C1724ff2845621A3585',
       functionName: 'createProposal',
       args: [
           previews,
@@ -59,9 +58,10 @@ const VotePage = () => {
   }
   return (
     <div className="min-h-screen bg-black flex items-center justify-center">
-      <div className="w-full max-w-4xl flex flex-col items-center justify-center mt-[6rem]">
-        <h1 className="text-3xl font-bold text-center text-white">Create new post</h1>
-        <p className='text-lg text-white mb-8'>upload your images and let your community decide for you</p>
+      <div className="w-full max-w-4xl flex flex-col items-center justify-center mt-[3rem]">
+      <h2 className="bg-clip-text text-transparent text-center bg-gradient-to-b from-neutral-900 to-neutral-700 dark:from-neutral-600 dark:to-white text-2xl md:text-2xl lg:text-4xl font-sans py-2 md:py-10 relative z-20 font-bold tracking-tight">
+          Create your Post
+      </h2>
         <BackgroundGradient className="rounded-[22px] p-4 sm:p-10 w-[70vw] bg-white dark:bg-zinc-900 flex flex-col items-center gap-3">
         <div className="flex perspective-1000 justify-evenly w-full gap-[4rem]">
           {/* Left side - Uploader */}
@@ -75,8 +75,8 @@ const VotePage = () => {
                     src={file.preview}
                     alt={`preview ${index}`}
                     className="object-cover rounded w-[50rem] h-[10rem]"
-                    width={100}
-                    height={100}
+                    width={50}
+                    height={50}
                   />
                 ))}
               </div>
@@ -115,7 +115,7 @@ const VotePage = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="usdValue" className="block text-sm font-medium text-white">USD Value</label>
+                <label htmlFor="usdValue" className="block text-sm font-medium text-white">ETH Value</label>
                 <input
                   type="text"
                   id="usdValue"

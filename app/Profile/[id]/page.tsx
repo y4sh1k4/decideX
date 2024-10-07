@@ -66,22 +66,21 @@ const Card=({params}:{params:{id:number}})=>{
         <div className="absolute top-100 mt-12 left-10">
             <span onClick={()=>router.back()} className="hover:underline flex align-center gap-2 justify-center"> <FaArrowLeft className="mt-1"/> Back</span>
         </div>
-        <div className="min-h-screen bg-black flex flex-col gap-5 items-center justify-center mt-12">
-                <h1 className="text-xl font-bold text-white text-center">{data?.prompt}</h1>
-                <p>Reward: {Number(data?.price/data?.totalVoters)/10**18} ETH</p>
-                <div className="flex gap-[2rem]">
+        <div className="min-h-screen bg-black flex flex-col gap-5 items-center justify-center mt-5">
+        <h2 className="bg-clip-text text-transparent text-center bg-gradient-to-b from-neutral-900 to-neutral-700 dark:from-neutral-600 dark:to-white text-2xl md:text-4xl lg:text-4xl font-sans py-2 md:py-10 relative z-20 font-bold tracking-tight">
+                Check Votes
+            </h2>
+                <div className="flex gap-[4rem]">
                     {data?.imgUrl.map((img,index)=>(
-                        <button key={index} className={`p-2 border-[0.5vw] bg-black ${imageId==index?" border-purple-500":"border-white"}`} onClick={() => handleProposalVote(index)}>
-                            <Image src={`https://olive-fashionable-mule-815.mypinata.cloud/ipfs/${img}`} width={100} height={100} key={index} alt="vote these images" className="w-[15rem] h-[10rem]"/>
-                        </button>
+                        <div className="flex flex-col gap-[2rem] items-center justify-center">
+                            <button key={index} className={`p-2 border-[0.2vw] bg-black`}>
+                                <Image src={`https://olive-fashionable-mule-815.mypinata.cloud/ipfs/${img}`} width={200} height={200} key={index} alt="vote these images" className="w-[15rem] h-[10rem]"/>
+                            </button>
+                            <div className="text-gray-500 text-xl">votes: <span className="text-white">{Number(data?.votesCount[index])}</span> </div>
+                        </div>
+
                     ))}
                 </div>
-                <button className="p-[3px] relative mt-8" onClick={handleVote}>
-                    <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
-                    <div className="px-8 py-2  bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent">
-                        Vote
-                    </div>
-                </button>
         </div>
         </div>
     )
