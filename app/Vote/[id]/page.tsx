@@ -6,7 +6,7 @@ import { useWatchContractEvent, useAccount } from 'wagmi'
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 const Card=({params}:{params:{id:number}})=>{
     const [imageId,setImageId]=useState<number>();
     const {chain,address}= useAccount();

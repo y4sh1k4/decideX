@@ -1,6 +1,6 @@
 "use client"
 import { WagmiProvider, createConfig, http } from "wagmi";
-import { mainnet,polygonAmoy, sepolia } from "wagmi/chains";
+import { polygonAmoy, sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 

@@ -4,7 +4,7 @@ import { useAccount } from "wagmi";
 import Link from "next/link";
 import Image from "next/image";
 export default function Header() {
-    const { address, chain } = useAccount();
+    const { address } = useAccount();
     return (
       <header className="bg-black backdrop-blur-sm bg-opacity-10 shadow-md border-b-2 border-b-gray-700 fixed top-0 w-[100%] z-40">
         <div className="container mx-auto px-4 py-4">
