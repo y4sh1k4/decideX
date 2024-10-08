@@ -2,7 +2,7 @@
 import {abi} from "@/app/utils/abi";
 import { useReadContract,useWriteContract } from 'wagmi';
 import Image from "next/image";
-import { useWatchContractEvent } from 'wagmi'
+import { useWatchContractEvent,useAccount } from 'wagmi'
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
@@ -19,10 +19,10 @@ const Card=({params}:{params:{id:number}})=>{
         voters:string[],
         votesCount:number[]
       }
-      
+      const {chain}= useAccount();
     const {data}= useReadContract({
         abi,
-        address: '0x49EEbE34b6ea44C602915C1724ff2845621A3585',
+        address: chain?.name=="Polygon Amoy"?'0x49EEbE34b6ea44C602915C1724ff2845621A3585':'0x91904E665Cb56a4c3edB067D65a9852d547F8F85',
         functionName: 'getProposal',
         args:[params.id]
     }) as {data:Proposal}
@@ -50,7 +50,7 @@ const Card=({params}:{params:{id:number}})=>{
         else{
             writeContract({ 
                 abi,
-                address: '0x49EEbE34b6ea44C602915C1724ff2845621A3585',
+                address: chain?.name=="Polygon Amoy"?'0x49EEbE34b6ea44C602915C1724ff2845621A3585':'0x91904E665Cb56a4c3edB067D65a9852d547F8F85',
                 functionName: 'castVote',
                 args: [
                     params.id,

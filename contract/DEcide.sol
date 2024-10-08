@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
-
 contract earn2click is Ownable{
     struct Proposal{
         uint256 proposalId;
@@ -13,6 +12,7 @@ contract earn2click is Ownable{
         uint totalVoters;
         address[] voters;
     }
+    event amountSend();
     Proposal[] public allProposals;
     uint256 public nextProposalId;
     modifier checkVoter(uint256 _proposalId){
@@ -67,5 +67,8 @@ contract earn2click is Ownable{
         allProposals[_proposalId].votesCount[_imgIndex]++;
         (bool success,)=msg.sender.call{value:allProposals[_proposalId].price/allProposals[_proposalId].totalVoters}("");
         require(success);
+        emit amountSend();
     }
+
+    
 }

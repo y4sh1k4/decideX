@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image';
-import { useWriteContract } from 'wagmi';
+import { useWriteContract,useAccount } from 'wagmi';
 import React, { useState } from 'react';
 import {abi} from "../utils/abi"
 import { parseEther } from 'viem';
@@ -37,6 +37,7 @@ const VotePage = () => {
       setSelectedFiles(prevFiles => [...prevFiles, ...filesArray]);
     }
   };
+  const {chain}= useAccount();
   const previews= imageHash.map(item=>item)
   console.log(previews)
   console.log(noOfVotes)
@@ -46,7 +47,7 @@ const VotePage = () => {
     e.preventDefault();
     writeContract({ 
       abi,
-      address: '0x49EEbE34b6ea44C602915C1724ff2845621A3585',
+      address: chain?.name=="Polygon Amoy"?'0x49EEbE34b6ea44C602915C1724ff2845621A3585':'0x91904E665Cb56a4c3edB067D65a9852d547F8F85',
       functionName: 'createProposal',
       args: [
           previews,

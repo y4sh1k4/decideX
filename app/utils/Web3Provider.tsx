@@ -1,17 +1,17 @@
 "use client"
 import { WagmiProvider, createConfig, http } from "wagmi";
-import { mainnet,polygonAmoy } from "wagmi/chains";
+import { mainnet,polygonAmoy, sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 
 const config = createConfig(
   getDefaultConfig({
     // Your dApps chains
-    chains: [mainnet,polygonAmoy],
+    chains: [polygonAmoy,sepolia],
     transports: {
-      // RPC URL for each chain
-      [mainnet.id]: http(),       
-      [polygonAmoy.id]:http()
+      // RPC URL for each chain   
+      [polygonAmoy.id]:http(),
+      [sepolia.id]:http()
     },
 
     // Required API Keys

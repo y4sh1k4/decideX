@@ -2,13 +2,14 @@
 import {abi} from "@/app/utils/abi";
 import { useReadContract,useWriteContract } from 'wagmi';
 import Image from "next/image";
-import { useWatchContractEvent } from 'wagmi'
+import { useWatchContractEvent, useAccount } from 'wagmi'
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
 import toast, { Toaster } from 'react-hot-toast';
 const Card=({params}:{params:{id:number}})=>{
     const [imageId,setImageId]=useState<number>();
+    const {chain,address}= useAccount();
     interface Proposal{
         imgUrl:string[],
         owner:string,
@@ -22,7 +23,7 @@ const Card=({params}:{params:{id:number}})=>{
       
     const {data}= useReadContract({
         abi,
-        address: '0x49EEbE34b6ea44C602915C1724ff2845621A3585',
+        address: chain?.name=="Polygon Amoy"?'0x49EEbE34b6ea44C602915C1724ff2845621A3585':'0x91904E665Cb56a4c3edB067D65a9852d547F8F85',
         functionName: 'getProposal',
         args:[params.id]
     }) as {data:Proposal}
@@ -47,17 +48,22 @@ const Card=({params}:{params:{id:number}})=>{
         if(Number(data?.totalVoters)===data?.voters.length){
             toast.error('Votes Count reached. Thanks for your participation');
         }
+        else if(address && data?.voters.includes(address)){
+            toast.error("Already Voted")
+        }
         else{
             writeContract({ 
                 abi,
-                address: '0x49EEbE34b6ea44C602915C1724ff2845621A3585',
+                address: chain?.name=="Polygon Amoy"?'0x49EEbE34b6ea44C602915C1724ff2845621A3585':'0x91904E665Cb56a4c3edB067D65a9852d547F8F85',
                 functionName: 'castVote',
                 args: [
                     params.id,
                     imageId
                 ]
              })
-             console.log(isSuccess)
+             if(isSuccess){
+                toast.success("succesfully voted!!Amount sent to wallet");
+             }
         }
     }
     const router = useRouter();

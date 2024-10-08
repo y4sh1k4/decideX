@@ -17,9 +17,10 @@ const VotePage = () => {
     voters:string[],
     votesCount:number[]
   }
+  const {chain}= useAccount();
   const {data}= useReadContract({
     abi,
-    address: '0x49EEbE34b6ea44C602915C1724ff2845621A3585',
+    address: chain?.name=="Polygon Amoy"?'0x49EEbE34b6ea44C602915C1724ff2845621A3585':'0x91904E665Cb56a4c3edB067D65a9852d547F8F85',
     functionName: 'getAllProposal',
   }) as {data:Proposal[]}
   console.log(data)
