@@ -15,7 +15,7 @@ interface Proposal{
 export function BackgroundGradientDemo({ imgUrl, prompt, totalVoters, voters, price}:Proposal) {
   return (
     <div>
-      <BackgroundGradient className="rounded-[22px] p-4 sm:p-10 w-[68vw] bg-white dark:bg-zinc-900 flex flex-col items-center gap-3">
+      <BackgroundGradient className="rounded-[22px] p-4 sm:p-10 bg-white dark:bg-zinc-900 flex flex-col items-center gap-3">
         <h2 className=" text-lg text-white mb-2">{prompt}</h2>
         <div className="flex justify-evenly">
                     {imgUrl.map((img,index)=>(
