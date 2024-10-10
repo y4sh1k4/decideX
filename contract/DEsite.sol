@@ -52,16 +52,16 @@ contract earn2click is Ownable{
             allProposal[i]=allProposals[i];
         }
         return allProposal;
-
     }
 
-    function withdraw() public onlyOwner returns(bool){
-       (bool success,) =  payable(msg.sender).call{value:address(this).balance}("");
-        return success;
-    } 
+    function withdraw(uint index) public onlyOwner{
+        delete allProposals[index];
+       (bool success,) = payable(msg.sender).call{value:address(this).balance}("");
+        require(success);
+    }
 
     function castVote(uint _proposalId, uint _imgIndex) checkVoter(_proposalId) public{
-        require(_proposalId < allProposals.length, "Proposal ID not valid");
+        // require(_proposalId < allProposals.length, "Proposal ID not valid");
         require(_imgIndex < allProposals[_proposalId].imgUrl.length, "Image index not valid");
         allProposals[_proposalId].voters.push(msg.sender);
         allProposals[_proposalId].votesCount[_imgIndex]++;
@@ -69,6 +69,4 @@ contract earn2click is Ownable{
         require(success);
         emit amountSend();
     }
-
-    
 }

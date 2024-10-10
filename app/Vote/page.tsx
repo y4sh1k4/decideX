@@ -18,7 +18,7 @@ const VotePage = () => {
   const {chain}= useAccount();
   const {data}= useReadContract({
     abi,
-    address: chain?.name=="Polygon Amoy"?'0xBddbaC11418Bf2Cc1B9c995076775910b580d81c':'0x7270AddDAAcCd5F560A1b81140dfDD41cB392302',
+    address: chain?.name=="Polygon Amoy"?'0xBddbaC11418Bf2Cc1B9c995076775910b580d81c':'0xc0Da0B87D791c41a33531A61eE18ecfdF29E9c78',
     functionName: 'getAllProposal',
   }) as {data:Proposal[]}
   console.log(data)
