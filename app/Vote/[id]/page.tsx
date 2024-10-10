@@ -2,7 +2,7 @@
 import {abi} from "@/app/utils/abi";
 import { useReadContract,useWriteContract } from 'wagmi';
 import Image from "next/image";
-import { useWatchContractEvent, useAccount } from 'wagmi'
+import { useAccount } from 'wagmi'
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
@@ -23,19 +23,11 @@ const Card=({params}:{params:{id:number}})=>{
       
     const {data}= useReadContract({
         abi,
-        address: chain?.name=="Polygon Amoy"?'0x49EEbE34b6ea44C602915C1724ff2845621A3585':'0x91904E665Cb56a4c3edB067D65a9852d547F8F85',
+        address: chain?.name=="Polygon Amoy"?'0xBddbaC11418Bf2Cc1B9c995076775910b580d81c':'0x7270AddDAAcCd5F560A1b81140dfDD41cB392302',
         functionName: 'getProposal',
         args:[params.id]
     }) as {data:Proposal}
     console.log(data);
-  useWatchContractEvent({
-    address: '0x49EEbE34b6ea44C602915C1724ff2845621A3585',
-    abi,
-    eventName: 'amountSend',
-    onLogs(logs) {
-      console.log('Amount send to your wallet ', logs)
-    },
-  })
 
 
     const handleProposalVote=(index:number)=>{
@@ -43,8 +35,6 @@ const Card=({params}:{params:{id:number}})=>{
     }
     const { writeContract ,isSuccess} = useWriteContract();
     const handleVote=()=>{
-        console.log(data?.totalVoters)
-        console.log(`v:${data?.voters.length}`)
         if(Number(data?.totalVoters)===data?.voters.length){
             toast.error('Votes Count reached. Thanks for your participation');
         }
@@ -54,7 +44,7 @@ const Card=({params}:{params:{id:number}})=>{
         else{
             writeContract({ 
                 abi,
-                address: chain?.name=="Polygon Amoy"?'0x49EEbE34b6ea44C602915C1724ff2845621A3585':'0x91904E665Cb56a4c3edB067D65a9852d547F8F85',
+                address: chain?.name=="Polygon Amoy"?'0xBddbaC11418Bf2Cc1B9c995076775910b580d81c':'0x7270AddDAAcCd5F560A1b81140dfDD41cB392302',
                 functionName: 'castVote',
                 args: [
                     params.id,

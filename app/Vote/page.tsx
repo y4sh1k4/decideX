@@ -18,7 +18,7 @@ const VotePage = () => {
   const {chain}= useAccount();
   const {data}= useReadContract({
     abi,
-    address: chain?.name=="Polygon Amoy"?'0x49EEbE34b6ea44C602915C1724ff2845621A3585':'0x91904E665Cb56a4c3edB067D65a9852d547F8F85',
+    address: chain?.name=="Polygon Amoy"?'0xBddbaC11418Bf2Cc1B9c995076775910b580d81c':'0x7270AddDAAcCd5F560A1b81140dfDD41cB392302',
     functionName: 'getAllProposal',
   }) as {data:Proposal[]}
   console.log(data)
@@ -26,14 +26,18 @@ const VotePage = () => {
     <div className="min-h-screen bg-black py-12 px-4 sm:px-6 lg:px-8 mt-10">
         <div className="max-w-3xl mx-auto">
         <h2 className="bg-clip-text text-transparent text-center bg-gradient-to-b from-neutral-900 to-neutral-700 dark:from-neutral-600 dark:to-white text-2xl md:text-4xl lg:text-4xl font-sans py-2 md:py-10 relative z-20 font-bold tracking-tight">
-          Caste a vote, Earn interesting awards
+          Cast a vote, Earn interesting awards
       </h2>
             <div className="space-y-6 flex flex-col gap-4">
-            {data && data.map((item) => (
+            {data?.map((item) => {
+              if(item.totalVoters){
+                return(
                 <Link key={item.proposalId} href={`/Vote/${item.proposalId}`}>
                   <BackgroundGradientDemo key={item.proposalId} {...item}/>
                 </Link>
-            ))}
+                )
+              }
+            })}
             </div>
         </div>
     </div>

@@ -1,10 +1,11 @@
 "use client"
 import {abi} from "@/app/utils/abi";
-import { useReadContract} from 'wagmi';
+import { useReadContract, useWriteContract} from 'wagmi';
 import Image from "next/image";
 import {useAccount } from 'wagmi'
 import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa";
+import toast  from "react-hot-toast";
 const Card=({params}:{params:{id:number}})=>{
     interface Proposal{
         imgUrl:string[],
@@ -19,11 +20,31 @@ const Card=({params}:{params:{id:number}})=>{
       const {chain}= useAccount();
     const {data}= useReadContract({
         abi,
-        address: chain?.name=="Polygon Amoy"?'0x49EEbE34b6ea44C602915C1724ff2845621A3585':'0x91904E665Cb56a4c3edB067D65a9852d547F8F85',
+        address: chain?.name=="Polygon Amoy"?'0xBddbaC11418Bf2Cc1B9c995076775910b580d81c':'0x7270AddDAAcCd5F560A1b81140dfDD41cB392302',
         functionName: 'getProposal',
         args:[params.id]
     }) as {data:Proposal}
-    console.log(data);
+
+    
+    const handleBalanceCheck=()=>{
+        console.log(data?.price)
+        console.log(data?.totalVoters)
+        console.log(data?.voters.length)
+        const balance=Number(data?.price)-(Number(data?.price/data?.totalVoters)*Number(data?.voters.length));
+        toast.success(`Balance left: ${balance/10**18} ETH`);
+    }
+    const { writeContract,isSuccess} = useWriteContract();
+    const handleWithdrawBalance=()=>{
+        writeContract({ 
+            abi,
+            address: chain?.name=="Polygon Amoy"?'0xBddbaC11418Bf2Cc1B9c995076775910b580d81c':'0x7270AddDAAcCd5F560A1b81140dfDD41cB392302',
+            functionName: 'withdraw',
+            args: [params.id]
+         })
+         if(isSuccess){
+            toast.success("Succesfully withdrawn!!");
+         }
+    }
     const router = useRouter();
     return(
         <div>
@@ -42,8 +63,21 @@ const Card=({params}:{params:{id:number}})=>{
                             </button>
                             <div className="text-gray-500 text-xl">votes: <span className="text-white">{Number(data?.votesCount[index])}</span> </div>
                         </div>
-
                     ))}
+                </div>
+                <div className="flex gap-[2rem]">
+                    <button className="p-[2px] relative mt-8" onClick={handleBalanceCheck}>
+                        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
+                        <div className="px-3 py-2  bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent">
+                            Check Balance
+                        </div>
+                    </button>
+                    <button className="p-[2px] relative mt-8" onClick={handleWithdrawBalance}>
+                        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
+                        <div className="px-3 py-2  bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent">
+                            Withdraw
+                        </div>
+                    </button>
                 </div>
         </div>
         </div>

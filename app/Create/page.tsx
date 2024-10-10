@@ -47,7 +47,7 @@ const VotePage = () => {
     e.preventDefault();
     writeContract({ 
       abi,
-      address: chain?.name=="Polygon Amoy"?'0x49EEbE34b6ea44C602915C1724ff2845621A3585':'0x91904E665Cb56a4c3edB067D65a9852d547F8F85',
+      address: chain?.name=="Polygon Amoy"?'0xBddbaC11418Bf2Cc1B9c995076775910b580d81c':'0x7270AddDAAcCd5F560A1b81140dfDD41cB392302',
       functionName: 'createProposal',
       args: [
           previews,
