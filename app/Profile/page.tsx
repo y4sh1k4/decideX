@@ -20,7 +20,7 @@ const VotePage = () => {
   const {chain}= useAccount();
   const {data}= useReadContract({
     abi,
-    address: chain?.name=="Polygon Amoy"?'0xBddbaC11418Bf2Cc1B9c995076775910b580d81c':'0xc0Da0B87D791c41a33531A61eE18ecfdF29E9c78',
+    address: chain?.name=="Polygon Amoy"?'0xd0C186d8CD45d5805Ea37c0620E98244Ae863219':'0xc0Da0B87D791c41a33531A61eE18ecfdF29E9c78',
     functionName: 'getAllProposal',
   }) as {data:Proposal[]}
   console.log(data)
@@ -29,7 +29,7 @@ const VotePage = () => {
         <div className="max-w-3xl mx-auto">
         <h2 className="bg-clip-text text-transparent text-center bg-gradient-to-b from-neutral-900 to-neutral-700 dark:from-neutral-600 dark:to-white text-2xl md:text-4xl lg:text-4xl font-sans py-2 md:py-10 relative z-20 font-bold tracking-tight">
           Your created Posts
-          
+
       </h2>
             <div className="space-y-6 flex flex-col gap-4">
             {data && data.map((item) => {
